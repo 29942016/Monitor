@@ -19,8 +19,8 @@ namespace Monitor
         {
             Process newProc;
 
-            try
-            {
+           // try
+           // {
                 switch (app)
                 {
                     case Application.Warcraft:
@@ -30,11 +30,11 @@ namespace Monitor
                         newProc = Process.Start(new ProcessStartInfo(_DirHonorBuddy));
                         break;
                 }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteMessage(Logger.State.BAD, e.InnerException.ToString());
-            }
+          //  }
+          //  catch (Exception e)
+          //  {
+          //      Logger.WriteMessage(Logger.State.BAD, e.InnerException.ToString());
+          //  }
         }
 
     }
