@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -16,13 +16,11 @@ namespace Monitor
         List<Process> ProcessList = new List<Process>();
         Process HonorBuddyClient;
         const string PROC_NAME = @"Honorbuddy";
-
-        BindingList<string> Log = new BindingList<string>();
+        
 
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -39,8 +37,8 @@ namespace Monitor
 
         private void InitializeLog()
         {
-            Log.Clear();
-            lbLog.DataSource = Log;
+            Logger.Log.Clear();
+            lbLog.DataSource = Logger.Log;
         }
 
         private void GetHonorBuddyClient()
@@ -51,11 +49,12 @@ namespace Monitor
 
             if (HonorBuddyClient == null)
             {
-                Log.Add("Honorbuddy client not running.");
+                Logger.WriteMessage(Logger.State.BAD, "Cant find Honorbuddy client.");
+                return;
             }
             else
             {
-                Log.Add("Honorbuddy client found.");
+                Logger.WriteProcessDetails(HonorBuddyClient);
             }
 
         }

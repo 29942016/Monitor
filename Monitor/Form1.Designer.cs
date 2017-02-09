@@ -37,10 +37,12 @@
             // 
             // lbLog
             // 
+            this.lbLog.Font = new System.Drawing.Font("Droid Sans Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbLog.FormattingEnabled = true;
+            this.lbLog.ItemHeight = 15;
             this.lbLog.Location = new System.Drawing.Point(12, 12);
             this.lbLog.Name = "lbLog";
-            this.lbLog.Size = new System.Drawing.Size(437, 342);
+            this.lbLog.Size = new System.Drawing.Size(437, 334);
             this.lbLog.TabIndex = 0;
             // 
             // btnStart
