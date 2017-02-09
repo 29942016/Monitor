@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -16,7 +11,13 @@ namespace Monitor
         List<Process> ProcessList = new List<Process>();
         Process HonorBuddyClient;
         const string PROC_NAME = @"Honorbuddy";
-        
+
+        private enum State
+        {
+            Running,
+            Idle,
+            Error
+        }
 
         public Form1()
         {
@@ -56,6 +57,8 @@ namespace Monitor
             {
                 Logger.WriteProcessDetails(HonorBuddyClient);
             }
+
+            lblState.Text = HonorBuddyClient == null ? State.Error.ToString() : State.Running.ToString() ;
 
         }
     }
