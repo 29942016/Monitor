@@ -29,32 +29,27 @@ namespace Monitor
         public WatchDog(Form1 @ref)
         {
             mainForm = @ref;
-            if (!Initialize())
-                throw new AccessViolationException();
+            Initialize();
 
             tWatchDog = new Thread(StartWatching);
             tWatchDog.Start();
         }
 
-        private bool Initialize()
+        private void Initialize()
         {
             List<Process> ProcessList = Process.GetProcesses().ToList();
             const string PROC_NAME_HB = "Honorbuddy",
                          PROC_NAME_WOW = "Wow";
 
-            hbProc = ProcessList.FirstOrDefault(x => x.ProcessName.Contains(PROC_NAME_HB));
-            WoWProc = ProcessList.FirstOrDefault(x => x.ProcessName.Contains(PROC_NAME_WOW));
+            while (hbProc == null || WoWProc == null)
+            {
+                Log(Logger.State.INFO, "Looking for processes...");
+                hbProc = ProcessList.FirstOrDefault(x => x.ProcessName.Contains(PROC_NAME_HB));
+                WoWProc = ProcessList.FirstOrDefault(x => x.ProcessName.Contains(PROC_NAME_WOW));
+                Thread.Sleep(5000);
+            }
 
-            if (hbProc == null || WoWProc == null)
-            {
-                Logger.WriteMessage(Logger.State.BAD, "Cant find client.");
-                return false;
-            }
-            else
-            {
-                Logger.WriteProcessDetails(hbProc);
-                return true;
-            }
+            Logger.WriteProcessDetails(hbProc);
         }
 
         private void StartWatching()
@@ -67,6 +62,7 @@ namespace Monitor
 
                 if(!WoWProc.HasExited)
                     WoWLifeSpan = DateTime.Now - WoWProc.StartTime;
+                else
 
                 if(!hbProc.HasExited)
                     HBLifeSpan = DateTime.Now - hbProc.StartTime;
@@ -77,6 +73,8 @@ namespace Monitor
             string message = string.Format("Disposed Watchdog for {0}({1}).", hbProc.MainWindowTitle , hbProc.Id);
             Log(Logger.State.INFO, message);
         }
+
+
         #region wrappers
         private void Log(Logger.State state, string message)
         {
