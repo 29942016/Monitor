@@ -19,22 +19,15 @@ namespace Monitor
         {
             Process newProc;
 
-           // try
-           // {
-                switch (app)
-                {
-                    case Application.Warcraft:
-                        newProc = Process.Start(new ProcessStartInfo(_DirWarcraft));
-                        break;
-                    case Application.HonorBuddy:
-                        newProc = Process.Start(new ProcessStartInfo(_DirHonorBuddy));
-                        break;
-                }
-          //  }
-          //  catch (Exception e)
-          //  {
-          //      Logger.WriteMessage(Logger.State.BAD, e.InnerException.ToString());
-          //  }
+            switch (app)
+            {
+                case Application.Warcraft:
+                    newProc = Process.Start(new ProcessStartInfo(_DirWarcraft));
+                    break;
+                case Application.HonorBuddy:
+                    newProc = Process.Start(new ProcessStartInfo(_DirHonorBuddy));
+                    break;
+            }
         }
 
     }

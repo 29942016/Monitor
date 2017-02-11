@@ -40,5 +40,15 @@ namespace Monitor
             WriteMessage(State.INFO, sTime);
             WriteMessage(State.INFO, "----------");
         }
+
+        public static void WriteAliveTime(Process[] procs, TimeSpan[] aliveTime)
+        {
+            for(int i = 0; i < procs.Length; i++)
+            {
+                string format = string.Format("{0} running for {1} hour(s) {1} minute(s)", procs[i].ProcessName, aliveTime[i].Hours, aliveTime[i].Minutes);
+                WriteMessage(State.INFO, format);
+            }
+
+        }
     }
 }
