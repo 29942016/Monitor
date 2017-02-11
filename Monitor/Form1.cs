@@ -11,13 +11,6 @@ namespace Monitor
     {
         WatchDog Watcher;
 
-        private enum State
-        {
-            Running,
-            Idle,
-            Error
-        }
-
         public Form1()
         {
             InitializeComponent();
@@ -28,11 +21,18 @@ namespace Monitor
         {
             Logger.Log.Clear();
             lbLog.DataSource = Logger.Log;
+
+            lbLog.SelectedValueChanged += LbLog_SelectedValueChanged;
         }
 
         #endregion
 
         #region event handlers
+        private void LbLog_SelectedValueChanged(object sender, EventArgs e)
+        {
+            lbLog.SelectedIndex = lbLog.Items.Count - 1;
+        }
+
         private void btnStart_Click(object sender, EventArgs e)
         {
             InitializeLog();
@@ -44,23 +44,5 @@ namespace Monitor
             Watcher.IsRunning = false;
         }
         #endregion
-
-        #region CrossThread handling logging
-        public delegate void SetLogEntry(Logger.State state, string text);
-        public void LogEntry(Logger.State state, string text)
-        {
-            if (lbLog.InvokeRequired)
-            {
-                SetLogEntry del = new SetLogEntry(LogEntry);
-                this.Invoke(del, new object[] { state, text });
-            }
-            else
-            {
-                Logger.WriteMessage(state, text);
-            }
-
-        }
-        #endregion
-
     }
 }

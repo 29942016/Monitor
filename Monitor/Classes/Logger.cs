@@ -45,7 +45,7 @@ namespace Monitor
         {
             for(int i = 0; i < procs.Length; i++)
             {
-                string format = string.Format("{0} running for {1} hour(s) {1} minute(s)", procs[i].ProcessName, aliveTime[i].Hours, aliveTime[i].Minutes);
+                string format = string.Format("{0, 10} running for {1} hour(s) {1} minute(s)", procs[i].ProcessName, aliveTime[i].Hours, aliveTime[i].Minutes);
                 WriteMessage(State.INFO, format);
             }
 

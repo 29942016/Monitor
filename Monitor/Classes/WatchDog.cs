@@ -75,7 +75,7 @@ namespace Monitor
             }
 
             string message = string.Format("Disposed Watchdog for {0}({1}).", hbProc.MainWindowTitle , hbProc.Id);
-            mainForm.LogEntry(Logger.State.INFO, message);
+            Log(Logger.State.INFO, message);
         }
         #region wrappers
         private void Log(Logger.State state, string message)
